@@ -1,0 +1,99 @@
+input {
+  padding: 8px;
+}
+
+.signup.page {
+  padding: 16px;
+}
+
+@media(min-width: 1000px) {
+  .signup.page {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+  }
+}
+
+.signup.page .form-container {
+  position: relative;
+}
+
+@media (min-width: 1000px) {
+  .signup.page .form-container {
+    padding: 16px;
+    position: relative;
+    width: 40%;
+  }
+}
+
+.signup.page h2 {
+  color: #858585
+}
+
+.signup.page .flavor-text {
+  color: #adadad;
+  font-size: 1em;
+}
+
+.signup.page form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1000px) {
+  .signup.page form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 61.8%;
+  }
+}
+
+.signup.page label {
+  color: #a3a3a3;
+  display: block;
+}
+
+.signup.page input {
+  border: thin solid #dfdfdf;
+  margin: 0 0 8px 0;
+  width: 100%;
+}
+
+.signup.page input[type="submit"]{
+  background: rgb(56,20,250);
+  background: linear-gradient(90deg, rgba(56,20,250,1) 0%, rgba(103,11,208,1) 50%, rgba(150,1,163,1) 100%);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 12px 8px;
+  margin: 12px 0;
+  text-transform: uppercase;
+}
+
+.signup.page .image-container {
+  display: none;
+}
+
+@media (min-width: 1000px) {
+  .signup.page .image-container {
+   background-image: url(https://images.pexels.com/photos/3184286/pexels-photo-3184286.jpeg?cs=srgb&dl=pexels-fauxels-3184286.jpg&fm=jpg);
+   background-repeat: no-repeat;
+   background-position: right;
+   background-size: cover;
+   display: block;
+   width: 60%;
+   height: 100vh;
+  }
+}
+
+.signup.page .sign-in-text {
+  text-align: center;
+}
+
+.signup.page a:link, .signup.page a:visited {
+  color: #b75cf9;
+  text-decoration: none;
+}
