@@ -1,0 +1,17 @@
+button {
+  line-height: 38px;
+  padding: 0 24px;
+  border: 1px solid transparent;
+  text-transform: uppercase;
+  transition: all .1s ease-in-out;
+}
+
+button:hover {
+  color: #fff;
+  background-color: #495057;
+}
+
+button:focus {
+  border: thin solid #495057;
+  outline: none;
+}
