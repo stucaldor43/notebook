@@ -1,0 +1,19 @@
+.note-preview-item {
+    cursor: pointer;
+    max-width: 600px;
+    border: thin solid transparent;
+    border-radius: 6px;
+    margin: 0 0 16px 0;
+    padding: 0 16px;
+    box-shadow: 0 0 5px 3px #dee2e6;
+    background-color: #f8f9fa;
+}
+
+.note-preview-item__title {
+  color: #212529;
+}
+
+.note-preview-item__textContent{
+  color: #495057;
+}
+

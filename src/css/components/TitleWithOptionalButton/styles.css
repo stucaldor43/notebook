@@ -1,0 +1,14 @@
+.title-with-optional-button {
+  max-width: 600px;
+  position: relative;
+}
+
+.title-with-optional-button__title {
+  line-height: 38px;
+}
+
+.title-with-optional-button__button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
