@@ -1,0 +1,39 @@
+.add-note-dialog--visible {
+  display: block;
+}
+
+.add-note-dialog--invisible {
+  display: none;
+}
+
+.add-note-dialog__container {
+  background-color: #fff;
+  max-width: 400px;
+  padding: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+}
+
+.add-note-dialog__content {
+  margin: 0 0 8px 0;
+}
+
+.add-note-dialog__title {
+
+}
+
+.add-note-dialog__input {
+  width: 100%;
+}
+
+.add-note-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-note-dialog_button--cancel {
+  margin: 0 4px 0 0;
+}
