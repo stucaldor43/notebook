@@ -24,6 +24,18 @@ const mockData = [{
   text: 'Finish homework for class on Monday',
   tag: "Philosophy",
   selected: false
+}, {
+  id: 4,
+  title: "Lorem Ipsum",
+  dateCreated: Number(new Date()),
+  text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+  Sed in tincidunt urna, eu convallis justo. Maecenas mattis varius augue, ac 
+  consequat mauris sollicitudin at. Aliquam sed tincidunt ligula. Aliquam turpis 
+  neque, sagittis sed efficitur id, posuere sit amet nibh. Maecenas risus ex, 
+  congue at velit et, lacinia sollicitudin quam. Vivamus vel diam cursus, 
+  lacinia justo in, blandit ipsum integer.`,
+  tag: "Jibberish",
+  selected: false
 }];
 
 function App({ children, location }) {

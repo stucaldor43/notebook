@@ -1,10 +1,14 @@
-import React from "react";
-import NotesView from "./../components/NotesView.jsx";
+import React, {useState} from "react";
+import NotesOverview from "../components/NotesOverview.jsx";
+import AddNoteDialog from "./../components/AddNoteDialog.jsx";
 
 function Home() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   return(
       <article className="page home">
-        <NotesView/>
+        <NotesOverview openDialog={() => setIsDialogOpen(true)}/>
+        <AddNoteDialog isOpen={isDialogOpen} closeDialog={() => setIsDialogOpen(false)}/>
       </article>
   );
 }
