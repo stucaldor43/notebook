@@ -8,21 +8,21 @@ const mockData = [{
   title: 'Gym Schedule',
   dateCreated: Number(new Date()),
   text: 'Before premiere on Tuesday, buy a dress',
-  tag: "Clothing",
+  tags: ["Clothing"],
   selected: false
 }, {
   id: 2,
   title: 'Exercise Goals',
   dateCreated: Number(new Date()),
   text: 'Run 2 miles every morning next week',
-  tag: "Exercise",
+  tags: ["Exercise"],
   selected: false
 }, {
   id: 3,
   title: 'PHI 105',
   dateCreated: Number(new Date()),
   text: 'Finish homework for class on Monday',
-  tag: "Philosophy",
+  tags: ["Philosophy"],
   selected: false
 }, {
   id: 4,
@@ -34,7 +34,7 @@ const mockData = [{
   neque, sagittis sed efficitur id, posuere sit amet nibh. Maecenas risus ex, 
   congue at velit et, lacinia sollicitudin quam. Vivamus vel diam cursus, 
   lacinia justo in, blandit ipsum integer.`,
-  tag: "Jibberish",
+  tags: ["Jibberish"],
   selected: false
 }];
 

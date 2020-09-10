@@ -1,0 +1,10 @@
+.edit-note-view__contentEditor {
+  width: 100%;
+  max-width: 600px;
+  height: 600px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 5px 3px #dee2e6;
+  padding: 8px 8px;
+  overflow: hidden;
+}

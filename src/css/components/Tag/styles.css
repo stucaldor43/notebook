@@ -1,0 +1,19 @@
+.tag {
+  background-color: #38dddd;
+  border-radius: 4px;
+  color: #fff;
+  display: inline;
+  margin: 0 4px 0 0;
+  padding: 8px 8px;
+}
+
+.tag__icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: text-bottom;
+  margin: 0 0 0 4px;
+}
+
+.tag__icon path {
+  fill: #56638A;
+}

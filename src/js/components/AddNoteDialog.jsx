@@ -39,7 +39,7 @@ function addNoteDialog({ isOpen, closeDialog }) {
                 </div>
                 <div className="add-note-dialog__footer">
                   <Button onClick={closeDialog} classes="add-note-dialog__button add-note-dialog_button--cancel">Cancel</Button>
-                  <Button onClick={() => { addNote(title, "", ""); setTitle(""); closeDialog() }} classes="add-note-dialog__button add-note-dialog_button--create">Create</Button>
+                  <Button onClick={() => { addNote(title, "", []); setTitle(""); closeDialog() }} classes="add-note-dialog__button add-note-dialog_button--create">Create</Button>
                 </div>
               </div>
             </Modal>
