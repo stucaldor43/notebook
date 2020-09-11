@@ -1,59 +1,43 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useNoteStore from "../stores/useNoteStore.jsx";
 import NoteContext from "./../context/note-context";
 import Fade from "../components/Fade.jsx";
+import AuthContext from "./../context/auth-context";
 
-const mockData = [{
-  id: 1,
-  title: 'Gym Schedule',
-  dateCreated: Number(new Date()),
-  text: 'Before premiere on Tuesday, buy a dress',
-  tags: ["Clothing"],
-  selected: false
-}, {
-  id: 2,
-  title: 'Exercise Goals',
-  dateCreated: Number(new Date()),
-  text: 'Run 2 miles every morning next week',
-  tags: ["Exercise"],
-  selected: false
-}, {
-  id: 3,
-  title: 'PHI 105',
-  dateCreated: Number(new Date()),
-  text: 'Finish homework for class on Monday',
-  tags: ["Philosophy"],
-  selected: false
-}, {
-  id: 4,
-  title: "Lorem Ipsum",
-  dateCreated: Number(new Date()),
-  text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-  Sed in tincidunt urna, eu convallis justo. Maecenas mattis varius augue, ac 
-  consequat mauris sollicitudin at. Aliquam sed tincidunt ligula. Aliquam turpis 
-  neque, sagittis sed efficitur id, posuere sit amet nibh. Maecenas risus ex, 
-  congue at velit et, lacinia sollicitudin quam. Vivamus vel diam cursus, 
-  lacinia justo in, blandit ipsum integer.`,
-  tags: ["Jibberish"],
-  selected: false
-}];
-
-function App({ children, location }) {
-  const { notes, setNotes, addNote, editNote, deleteNote, selectNote, save, load } = useNoteStore(mockData);
+function useAuth() {
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // load data from database
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      user ? setUser(user) : setUser(false)
+    });
+
+    return () => unsubscribe();
   }, []);
 
+  return { user, isSignedIn: !!user };
+}
+
+function App({ children, location }) {
+  const { notes, setNotes, addNote, editNote, deleteNote, selectNote, save, load } = useNoteStore([]);
+  const { user, isSignedIn } = useAuth();
+
+  useEffect(() => {
+    load();
+  }, [user]);
+
   return (
-    <NoteContext.Provider value={{ notes, setNotes, addNote, editNote, deleteNote, selectNote, save, load }}>
-      <Fade childKey={location.pathname} 
-             enter={1000} 
-             exit={1000} 
-             classes={"my-node"}>
-        { children }
-      </Fade>
-    </NoteContext.Provider>
+    <AuthContext.Provider value={{ user, isSignedIn }}>
+      <NoteContext.Provider value={{ notes, setNotes, addNote, editNote, deleteNote, selectNote, save, load }}>
+        <Fade childKey={location.pathname}
+          enter={1000}
+          exit={1000}
+          classes={"my-node"}>
+          {children}
+        </Fade>
+        <button style={{ left: "88%", position: "absolute", cursor: 'pointer' }} onClick={() => firebase.auth().signOut()}>Sign Out</button>
+      </NoteContext.Provider>
+    </AuthContext.Provider>
   );
 }
 
