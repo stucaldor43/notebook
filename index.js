@@ -26,4 +26,7 @@ function Notebook() {
 }
 
 const reactContainer = document.getElementById("view");
-ReactDOM.render(<Notebook/>, reactContainer)
+
+window.addEventListener("load", () => {
+  ReactDOM.render(<Notebook/>, reactContainer);
+});

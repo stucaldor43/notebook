@@ -5,7 +5,7 @@ import "./../../css/components/TagList/styles.css";
 function TagList({tags, removeTag}) {
   return (
     <ul className="tag-list">
-      {tags.map((tag, i) => <Tag name={tag} deleteTag={() => removeTag(i)}></Tag>)}
+      {tags.map((tag, i) => <Tag name={tag} deleteTag={() => removeTag(tag)}></Tag>)}
     </ul>
   );
 }

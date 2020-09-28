@@ -3,12 +3,26 @@
   position: relative;
 }
 
+.title-with-optional-button__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
 .title-with-optional-button__title {
   line-height: 38px;
 }
 
 .title-with-optional-button__button {
-  position: absolute;
-  top: 0;
-  right: 0;
+  background-color: transparent;
+  margin: 0 8px 0 0;
+}
+
+.title-with-optional-button__button:last-child {
+  margin: 0 0;
+}
+
+.title-with-optional-button__elementsContainer {
+  display: flex;
+  justify-content: flex-end;
 }

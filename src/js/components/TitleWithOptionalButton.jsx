@@ -1,12 +1,14 @@
 import React from 'react';
 import "./../../css/components/TitleWithOptionalButton/styles.css";
 
-function TitleWithOptionalButton({title, button}) {
+function TitleWithOptionalButton({ children, title }) {
   return (
     <div className="title-with-optional-button">
-      <h1 className="title-with-optional-button__title">{title}</h1>
-      <div>
-        {button || null}
+      <div className="title-with-optional-button__row">
+        <h1 className="title-with-optional-button__title">{title}</h1>
+        <div className="title-with-optional-button__elementsContainer">
+          {children}
+        </div>
       </div>
     </div>
   )

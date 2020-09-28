@@ -6,7 +6,7 @@ import "./../../css/components/AddNoteDialog/styles.css";
 
 let dialogElement;
 
-function addNoteDialog({ isOpen, closeDialog }) {
+function AddNoteDialog({ closeDialog }) {
   const [title, setTitle] = useState("");
   
   const handleClick = (e) => {
@@ -29,7 +29,7 @@ function addNoteDialog({ isOpen, closeDialog }) {
       {
         ({ addNote }) => {
           return (
-            <Modal classes={`${isOpen ? "add-note-dialog--visible" : "add-note-dialog--invisible"} add-note-dialog`}>
+            <Modal classes="add-note-dialog">
               <div ref={(el) => dialogElement = el} className="add-note-dialog__container">
                 <div className="add-note-dialog_header">
                   <h2 className="add-note-dialog__title">Add Note</h2>
@@ -50,4 +50,4 @@ function addNoteDialog({ isOpen, closeDialog }) {
   );
 }
 
-export default addNoteDialog;
+export default AddNoteDialog;

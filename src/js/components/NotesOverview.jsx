@@ -1,13 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TitleWithOptionalButton from "./TitleWithOptionalButton.jsx";
 import Button from "./Button.jsx";
 import NotePreviewList from "./NotePreviewList.jsx";
+import TagSvg from './TagSvg.jsx';
+import AddNoteDialog from "./AddNoteDialog.jsx";
+import TagManager from './TagManager.jsx';
 
-function NotesOverview({openDialog}) {
+function NotesOverview({ }) {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isTagManagerOpen, setIsTagManagerOpen] = useState(false);
+
   return (
     <div>
-      <TitleWithOptionalButton title="Notes" button={<Button classes="title-with-optional-button__button" onClick={openDialog}>Add Note</Button>}></TitleWithOptionalButton>
-      <NotePreviewList/>
+      <TitleWithOptionalButton
+        title="Notes">
+        <Button classes="title-with-optional-button__button"
+          onClick={() => setIsDialogOpen(true)}>
+          Add Note
+            </Button>
+        <Button classes="title-with-optional-button__button"
+          onClick={() => setIsTagManagerOpen(true)}>
+          <TagSvg />
+        </Button>
+      </TitleWithOptionalButton>
+      <NotePreviewList />
+      { isDialogOpen && <AddNoteDialog closeDialog={() => setIsDialogOpen(false)} />}
+      { isTagManagerOpen && <TagManager onClose={() => setIsTagManagerOpen(false)} />}
     </div>
   );
 }

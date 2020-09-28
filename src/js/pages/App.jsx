@@ -19,23 +19,23 @@ function useAuth() {
 }
 
 function App({ children, location }) {
-  const { notes, setNotes, addNote, editNote, deleteNote, selectNote, save, load } = useNoteStore([]);
+  const { notes, setNotes, addNote, editNote, deleteNote, selectNote, removeTagFromNotes, addTagToNotes, save, load } = useNoteStore([]);
   const { user, isSignedIn } = useAuth();
 
   useEffect(() => {
-    load();
+    if (isSignedIn) load(); // wrong, change
   }, [user]);
 
   return (
     <AuthContext.Provider value={{ user, isSignedIn }}>
-      <NoteContext.Provider value={{ notes, setNotes, addNote, editNote, deleteNote, selectNote, save, load }}>
+      <NoteContext.Provider value={{ notes, setNotes, addNote, editNote, deleteNote, selectNote, save, load, removeTagFromNotes, addTagToNotes }}>
         <Fade childKey={location.pathname}
           enter={1000}
           exit={1000}
           classes={"my-node"}>
           {children}
         </Fade>
-        <button style={{ left: "88%", position: "absolute", cursor: 'pointer' }} onClick={() => firebase.auth().signOut()}>Sign Out</button>
+        <button style={{ zIndex: "99999", position: "absolute", cursor: 'pointer' }} onClick={() => firebase.auth().signOut()}>Sign Out</button>
       </NoteContext.Provider>
     </AuthContext.Provider>
   );
