@@ -8,6 +8,14 @@ const notes = (user) => {
         .docs
         .map((noteQueryDocSnapshot) => noteQueryDocSnapshot.data());
     },
+    findNote: async (id) => {
+      return (await db.collection("users")
+        .doc(user.displayName)
+        .collection("notes")
+        .doc(id)
+        .get())
+        .data()
+    },
     updateNote: async (id, note) => {
       await db.collection("users")
         .doc(user)
@@ -32,4 +40,4 @@ const notes = (user) => {
   }
 }
 
-const api = notes(user)
+export default notes;

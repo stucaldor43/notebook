@@ -17,7 +17,7 @@ function Notebook() {
     <Router history={hashHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={HomePage}/>
-        <Route path="note/:id" component={EditNotePage}/>
+        <Route path="note/:id" component={EditNotePage}/> // TODO serve 404 page instead if id doesn't match one of the users notes. Edit note page should not be rendered at all to prevent errors due to undefined variables
       </Route>
       <Route path="signup" component={SignupPage}/>
       <Route path="signin" component={SigninPage}/>

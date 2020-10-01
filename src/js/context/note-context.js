@@ -7,6 +7,9 @@ const NoteContext = React.createContext({
   editNote: (id, updatedNote) => {}, 
   deleteNote: (id) => {},
   selectNote: (id) => {},
+  loadNote: (note) => {},
+  removeTagFromNotes: (tag) => {},
+  addTagToNotes: (noteIds, tag) => {},
   save: () => {}, 
   load: () => {}
 });

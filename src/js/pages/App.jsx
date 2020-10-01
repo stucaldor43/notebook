@@ -19,7 +19,7 @@ function useAuth() {
 }
 
 function App({ children, location }) {
-  const { notes, setNotes, addNote, editNote, deleteNote, selectNote, removeTagFromNotes, addTagToNotes, save, load } = useNoteStore([]);
+  const { notes, setNotes, addNote, editNote, deleteNote, selectNote, loadNote, removeTagFromNotes, addTagToNotes, save, load } = useNoteStore([]);
   const { user, isSignedIn } = useAuth();
 
   useEffect(() => {
@@ -28,7 +28,7 @@ function App({ children, location }) {
 
   return (
     <AuthContext.Provider value={{ user, isSignedIn }}>
-      <NoteContext.Provider value={{ notes, setNotes, addNote, editNote, deleteNote, selectNote, save, load, removeTagFromNotes, addTagToNotes }}>
+      <NoteContext.Provider value={{ notes, setNotes, addNote, editNote, deleteNote, selectNote, loadNote, save, load, removeTagFromNotes, addTagToNotes }}>
         <Fade childKey={location.pathname}
           enter={1000}
           exit={1000}

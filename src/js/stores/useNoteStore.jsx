@@ -26,6 +26,15 @@ function useNoteStore(initialValue) {
     setNotes(notes);
   }
 
+  const loadNote = (noteToLoad) => {
+    const isNotePresentOnClient = notes.filter((note) => note.id === noteToLoad.id).length > 0 ? true : false;
+
+    const modifiedNotes = isNotePresentOnClient 
+    ? notes.map((note) => note.id === noteToLoad.id ? noteToLoad : note) 
+    : notes.concat([noteToLoad]);
+    setNotes(modifiedNotes);
+  }
+
   const addNote = (title, text, tags) => {
     const createdNote = {
       id: generateUUID(),
@@ -44,6 +53,7 @@ function useNoteStore(initialValue) {
       .collection("notes")
       .doc(createdNote.id)
       .set(createdNote)
+    // TODO add try catch block around db call that will remove note from ui if the add note operation failed
   }
 
   const editNote = (id, updatedFields) => {
@@ -103,6 +113,7 @@ function useNoteStore(initialValue) {
     deleteNote,
     editNote,
     selectNote,
+    loadNote,
     removeTagFromNotes,
     addTagToNotes,
     save,

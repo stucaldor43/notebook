@@ -40,12 +40,12 @@ function TagManager({ onClose }) {
 
     try {
       setTags(tags.filter(tag => tag !== tagToRemove));
-      removeTagFromNotes(tagToRemove);
+      removeTagFromNotes(tagToRemove); // TODO use setnotes from context to remove tags from notes
       await api.deleteTag(tagToRemove);
     }
     catch (error) {
       setTags(tags.concat([tagToRemove]));
-      addTagToNotes(notesWithTag, tagToRemove);
+      addTagToNotes(notesWithTag, tagToRemove); // TODO use setnotes from context to add tags to notes
     }
   }
 
@@ -65,7 +65,7 @@ function TagManager({ onClose }) {
       setTags(await api.fetchTags());
     }
 
-    if (!tagsLoaded && isSignedIn) {
+    if (!tagsLoaded && isSignedIn) { // TODO determine if tagsloaded is needed here
       loadTags();
       setTagsLoaded(true);
     }
