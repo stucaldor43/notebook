@@ -18,15 +18,13 @@ function NoteEditor({ params: { id } }) {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [tags, setTags] = useState([]);
-
-  const api = Object.assign({}, notesAPI(user), tagsAPI(user));
-
+  const [api, setAPI] = useState(undefined);
+  
+  const [currentNote, setCurrentNote] = useState(null);
+  
   const addTag = async (tagToAdd) => {
     const selectedNotes = notes.filter((note) => note.selected);
     console.assert(selectedNotes.length === 1, { notes: selectedNotes, errorMsg: "Multiple notes have a selected property that is true" })
-    const currentNote = selectedNotes[0];
-    const tagExists = typeof (await api.findTagByName(tagToAdd)) !== "undefined" ? true : false;
-    if (tagExists) return alert("A tag with that name already exists.")
     const noteTagCount = await api.findNote(currentNote.id);
     if (noteTagCount.length >= 4) return alert("You have reached the tag limit for this note. To add a tag to this note you must remove an existing tag first.");
 
@@ -41,8 +39,6 @@ function NoteEditor({ params: { id } }) {
   }
 
   const removeTag = async (tagToRemove) => {
-    const currentNote = notes.find((note) => note.selected)
-
     try {
       editNote(currentNote.id, { tags: currentNote.tags.filter((tag) => tag !== tagToRemove) });
       api.updateNote(currentNote.id, { tags: currentNote.tags.filter((tag) => tag !== tagToRemove) });
@@ -53,6 +49,7 @@ function NoteEditor({ params: { id } }) {
   }
 
   const loadNote = async () => {
+    setAPI(Object.assign({}, notesAPI(user), tagsAPI(user)));
     const note = await api.findNote(id);
     updateNote(note);
     selectNote(note.id);
@@ -60,7 +57,7 @@ function NoteEditor({ params: { id } }) {
 
   useEffect(() => {
     if (isSignedIn && isLoading) loadNote();
-  })
+  }, [])
 
   useEffect(() => {
     if (isSignedIn && isLoading) loadNote();
@@ -71,6 +68,7 @@ function NoteEditor({ params: { id } }) {
     if (selectedNotes.length <= 0) return;
 
     const note = selectedNotes[0];
+    setCurrentNote(note);
     if (isLoading) {
       setTitle(note.title);
       setText(note.text);
@@ -90,14 +88,17 @@ function NoteEditor({ params: { id } }) {
           return (
             <article className="page note">
               {
-                isLoading ?
+                isLoading || currentNote === null ?
                   null :
                   <div className="container">
                     <EditableTitle title={title} updateTitle={(e) => setTitle(e.target.value)} />
                     <EditNoteView contents={text} updateContents={(e) => setText(e.target.textContent)} />
                     <TagArea tags={tags} addTag={(tag) => addTag(tag)} removeTag={(tag) => removeTag(tag)} />
                     <button onClick={() => editNote(notes.find((note) => note.selected).id, { title, text, tags })}>Save</button>
-                  </div> // TODO is tagger needed here?
+                    <Tagger tags={currentNote.tags} 
+                      addTag={(tag) => addTag(tag)} 
+                      removeTag={(tag) => removeTag(tag)}/>
+                  </div>
               }
             </article>
           )
