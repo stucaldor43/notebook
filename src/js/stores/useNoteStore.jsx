@@ -59,6 +59,8 @@ function useNoteStore(initialValue) {
   const editNote = (id, updatedFields) => {
     const outdatedNote = notes.filter((note) => note.id === id)[0]
     const editedNote = Object.assign({}, outdatedNote, updatedFields);
+    if (editedNote.tags.length > 4) return;
+    
     setNotes(notes.map((note) => {
       return id === note.id ? editedNote : note
     }));
