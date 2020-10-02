@@ -15,7 +15,7 @@ function TagManager({ onClose }) {
   const [tagsLoaded, setTagsLoaded] = useState(false);
   const [newTagName, setNewTagName] = useState("");
 
-  const api = tagsAPI(user);
+  const api = tagsAPI();
 
   const addTag = async (tagToAdd) => {
     const tagExists = typeof (await api.findTagByName(tagToAdd)) !== "undefined" ? true : false;
@@ -44,6 +44,7 @@ function TagManager({ onClose }) {
       await api.deleteTag(tagToRemove);
     }
     catch (error) {
+      console.log(error);
       setTags(tags.concat([tagToRemove]));
       addTagToNotes(notesWithTag, tagToRemove); // TODO use setnotes from context to add tags to notes
     }

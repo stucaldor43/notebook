@@ -5,11 +5,14 @@ import AuthContext from '../context/auth-context';
 
 function Tagger({ tags, addTag, removeTag }) {
   const { user } = useContext(AuthContext)
+  
   const [tagName, setTagName] = useState("");
   const [allPossibleNoteTagsList, setAllPossibleNoteTagsList] = useState([]);
+  
+  const api = tagsAPI();
 
   const fetchAllTags = async () => {
-    setAllPossibleNoteTagsList(await tagsAPI(user).fetchTags());
+    setAllPossibleNoteTagsList(await api.fetchTags());
     console.log('data fetched');
   }
 
@@ -31,7 +34,7 @@ function Tagger({ tags, addTag, removeTag }) {
         {
           allPossibleNoteTagsList.map((selectableTag) => {
             return (
-              <label><input checked={tags.indexOf(selectableTag) >= 0 ? true : false} type="checkbox" onChange={(e) => e.target.checked ? addTag(selectableTag) : removeTag(selectableTag)} />{selectableTag}</label>);
+              <label key={selectableTag}><input checked={tags.indexOf(selectableTag) >= 0 ? true : false} type="checkbox" onChange={(e) => e.target.checked ? addTag(selectableTag) : removeTag(selectableTag)} />{selectableTag}</label>);
           })
         }
       </div>

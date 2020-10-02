@@ -14,14 +14,15 @@ let note;
 function NoteEditor({ params: { id } }) {
   const { user, isSignedIn } = useContext(AuthContext);
   const { editNote, loadNote: updateNote, selectNote, notes } = useContext(NoteContext);
+  
   const [isLoading, setIsLoading] = useState(true);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [tags, setTags] = useState([]);
-  const [api, setAPI] = useState(undefined);
-  
   const [currentNote, setCurrentNote] = useState(null);
-  
+
+  const api = Object.assign({}, notesAPI(), tagsAPI());
+
   const addTag = async (tagToAdd) => {
     const selectedNotes = notes.filter((note) => note.selected);
     console.assert(selectedNotes.length === 1, { notes: selectedNotes, errorMsg: "Multiple notes have a selected property that is true" })
@@ -49,7 +50,6 @@ function NoteEditor({ params: { id } }) {
   }
 
   const loadNote = async () => {
-    setAPI(Object.assign({}, notesAPI(user), tagsAPI(user)));
     const note = await api.findNote(id);
     updateNote(note);
     selectNote(note.id);
