@@ -18,7 +18,7 @@ const notes = () => {
         .get())
         .data()
     },
-    updateNote: async (id, note) => {
+    updateNote: async (id, note) => { // TODO replace note parameter with updatedfields or similar
       await db.collection("users")
         .doc(user.name)
         .collection("notes")

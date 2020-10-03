@@ -30,23 +30,35 @@ function NoteEditor({ params: { id } }) {
     if (noteTagCount.length >= 4) return alert("You have reached the tag limit for this note. To add a tag to this note you must remove an existing tag first.");
 
     try {
-      editNote(currentNote.id, { tags: currentNote.tags.concat([tagToAdd]) }); // TODO add tests for editnote, may not work properly
-      api.updateNote(currentNote.id, { tags: currentNote.tags.concat([tagToAdd]) });
+      await api.updateNote(currentNote.id, { tags: currentNote.tags.concat([tagToAdd]) });
+    }
+    catch(e) {
+      console.log(e);
+      return alert("Failed to add tag. Please try again later.");
+    }
+
+    try {
       api.createTag(tagToAdd);
     }
-    catch (error) {
-      editNote(currentNote.id, { tags: currentNote.tags.filter((tag) => tag !== tagToAdd) });
+    catch(e) {
+      console.log(e);
+      await api.updateNote(currentNote.id, { tags: currentNote.tags.filter((tag) => tag !== tagToAdd) });
+      return alert("Failed to add tag. Please try again later.");
     }
+
+    editNote(currentNote.id, { tags: currentNote.tags.concat([tagToAdd]) });
   }
 
   const removeTag = async (tagToRemove) => {
     try {
-      editNote(currentNote.id, { tags: currentNote.tags.filter((tag) => tag !== tagToRemove) });
       api.updateNote(currentNote.id, { tags: currentNote.tags.filter((tag) => tag !== tagToRemove) });
     }
-    catch (error) {
-      editNote(currentNote.id, { tags: currentNote.tags.concat([tagToRemove]) });
+    catch(e) {
+      console.log(e);
+      return alert("Failed to remove tag. Please try again later.");
     }
+
+    editNote(currentNote.id, { tags: currentNote.tags.filter((tag) => tag !== tagToRemove) });
   }
 
   const loadNote = async () => {

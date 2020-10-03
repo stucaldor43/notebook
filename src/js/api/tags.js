@@ -27,18 +27,13 @@ const tags = () => {
       return tags[0];
     },
     createTag: async (name) => {
-      try {
-        await db.collection("users")
-          .doc(user.name)
-          .collection("tags")
-          .doc(name)
-          .set({
-            name
-          });
-      }
-      catch (error) {
-        throw error;
-      }
+      await db.collection("users")
+        .doc(user.name)
+        .collection("tags")
+        .doc(name)
+        .set({
+          name
+        });
     },
     deleteTag: async (tag) => {
       return await db.runTransaction(async function (transaction) {

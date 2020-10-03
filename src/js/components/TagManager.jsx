@@ -24,22 +24,24 @@ function TagManager({ onClose }) {
     if (presentTags.length >= 50) return alert("You have reached the tag limit. To create more tags you should delete some of your existing tags.");
 
     try {
-      setTags(tags.concat([tagToAdd]));
-      setNewTagName("");
-      api.createTag(tagToAdd);
+      await api.createTag(tagToAdd);
     }
-    catch (error) {
-      setTags(tags.filter(tag => tag !== tagToAdd));
+    catch (e) {
+      console.log(e);
+      return alert("Failed to create tag. Please try again later.");
     }
+
+    setTags(tags.concat([tagToAdd]));
+    setNewTagName("");
   }
 
   const removeTag = async (tagToRemove) => {
     try {
       await api.deleteTag(tagToRemove);
     }
-    catch(e) {
+    catch (e) {
       console.log(e);
-      return;  
+      return alert("Failed to delete tag. Please try again later.");
     }
 
     setTags(tags.filter(tag => tag !== tagToRemove));
