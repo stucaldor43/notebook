@@ -1,11 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from './Button';
 import tagsAPI from "./../api/tags";
-import AuthContext from '../context/auth-context';
 
 function Tagger({ tags, addTag, removeTag }) {
-  const { user } = useContext(AuthContext)
-  
   const [tagName, setTagName] = useState("");
   const [allPossibleNoteTagsList, setAllPossibleNoteTagsList] = useState([]);
   
@@ -28,7 +25,10 @@ function Tagger({ tags, addTag, removeTag }) {
       </div>
       <div>
         <input type="text" value={tagName} onChange={(e) => setTagName(e.target.value)} />
-        <Button onClick={() => addTag(tagName)}>Add</Button>
+        <Button onClick={() => {
+          addTag(tagName);
+          setTagName("");
+        }}>Add</Button>
       </div>
       <div>
         {
