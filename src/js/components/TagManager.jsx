@@ -34,20 +34,16 @@ function TagManager({ onClose }) {
   }
 
   const removeTag = async (tagToRemove) => {
-    const notesWithTag = notes
-      .filter((note) => note.tags.indexOf(tagToRemove) >= 0)
-      .map((note) => note.id);
-
     try {
-      setTags(tags.filter(tag => tag !== tagToRemove));
-      removeTagFromNotes(tagToRemove); // TODO use setnotes from context to remove tags from notes
       await api.deleteTag(tagToRemove);
     }
-    catch (error) {
-      console.log(error);
-      setTags(tags.concat([tagToRemove]));
-      addTagToNotes(notesWithTag, tagToRemove); // TODO use setnotes from context to add tags to notes
+    catch(e) {
+      console.log(e);
+      return;  
     }
+
+    setTags(tags.filter(tag => tag !== tagToRemove));
+    removeTagFromNotes(tagToRemove);
   }
 
   useEffect(() => {

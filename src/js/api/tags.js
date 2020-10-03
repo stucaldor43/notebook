@@ -1,3 +1,5 @@
+import arrayDifference from "../utils/arrayDifference";
+
 const tags = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -47,7 +49,7 @@ const tags = () => {
           .get())
           .forEach((noteQueryDocumentSnapshot) => {
             transaction.set(noteQueryDocumentSnapshot.ref, {
-              tags: db.FieldValue.arrayRemove(tag)
+              tags: arrayDifference(noteQueryDocumentSnapshot.data().tags, [tag])// arraydiff noteQueryDocumentSnapshot.data().tags
             }, { merge: true })
           });
         transaction.delete(db.collection("users")
