@@ -1,6 +1,7 @@
 .snackbar {
   background-color: #000;
   border-radius: 6px;
+  font-size: .875em;
   max-width: 300px;
   padding: 8px;
   display: flex;

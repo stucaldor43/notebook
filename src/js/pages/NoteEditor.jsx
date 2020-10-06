@@ -8,18 +8,21 @@ import TagArea from '../components/TagArea.jsx';
 import AuthContext from '../context/auth-context';
 import notesAPI from "./../api/notes";
 import tagsAPI from "./../api/tags";
+import SnackBar from '../components/Snackbar';
 
 let note;
 
 function NoteEditor({ params: { id } }) {
   const { user, isSignedIn } = useContext(AuthContext);
   const { editNote, loadNote: updateNote, selectNote, notes } = useContext(NoteContext);
-  
+
   const [isLoading, setIsLoading] = useState(true);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [tags, setTags] = useState([]);
   const [currentNote, setCurrentNote] = useState(null);
+  const [snackbarOptions, setSnackbarOptions] = useState({});
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
 
   const api = Object.assign({}, notesAPI(), tagsAPI());
 
@@ -27,23 +30,25 @@ function NoteEditor({ params: { id } }) {
     const selectedNotes = notes.filter((note) => note.selected);
     console.assert(selectedNotes.length === 1, { notes: selectedNotes, errorMsg: "Multiple notes have a selected property that is true" })
     const noteTagCount = await api.findNote(currentNote.id);
-    if (noteTagCount.length >= 4) return alert("You have reached the tag limit for this note. To add a tag to this note you must remove an existing tag first.");
+    if (noteTagCount.length >= 4) return openSnackbar("You have reached the tag limit for this note. To add a tag to this note you must remove an existing tag first.");
 
     try {
       await api.updateNote(currentNote.id, { tags: currentNote.tags.concat([tagToAdd]) });
     }
-    catch(e) {
+    catch (e) {
       console.log(e);
-      return alert("Failed to add tag. Please try again later.");
+      openSnackbar("Failed to add tag. Please try again later.");
+      return;
     }
 
     try {
       api.createTag(tagToAdd);
     }
-    catch(e) {
+    catch (e) {
       console.log(e);
+      openSnackbar("Failed to add tag. Please try again later.");
       await api.updateNote(currentNote.id, { tags: currentNote.tags.filter((tag) => tag !== tagToAdd) });
-      return alert("Failed to add tag. Please try again later.");
+      return;
     }
 
     editNote(currentNote.id, { tags: currentNote.tags.concat([tagToAdd]) });
@@ -53,12 +58,18 @@ function NoteEditor({ params: { id } }) {
     try {
       api.updateNote(currentNote.id, { tags: currentNote.tags.filter((tag) => tag !== tagToRemove) });
     }
-    catch(e) {
+    catch (e) {
       console.log(e);
-      return alert("Failed to remove tag. Please try again later.");
+      openSnackbar("Failed to remove tag. Please try again later.");
+      return;
     }
-
+    
     editNote(currentNote.id, { tags: currentNote.tags.filter((tag) => tag !== tagToRemove) });
+  }
+
+  const openSnackbar = (text) => {
+    setSnackbarOptions({ text, timeout: 5000, multiline: true })
+    setIsSnackbarOpen(true);
   }
 
   const loadNote = async () => {
@@ -107,10 +118,14 @@ function NoteEditor({ params: { id } }) {
                     <EditNoteView contents={text} updateContents={(e) => setText(e.target.textContent)} />
                     <TagArea tags={tags} addTag={(tag) => addTag(tag)} removeTag={(tag) => removeTag(tag)} />
                     <button onClick={() => editNote(notes.find((note) => note.selected).id, { title, text, tags })}>Save</button>
-                    <Tagger tags={currentNote.tags} 
-                      addTag={(tag) => addTag(tag)} 
-                      removeTag={(tag) => removeTag(tag)}/>
+                    <Tagger tags={currentNote.tags}
+                      addTag={(tag) => addTag(tag)}
+                      removeTag={(tag) => removeTag(tag)} />
                   </div>
+              }
+              {
+                isSnackbarOpen &&
+                <SnackBar options={snackbarOptions} close={() => setIsSnackbarOpen(false)} />
               }
             </article>
           )

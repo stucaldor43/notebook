@@ -5,6 +5,7 @@ import tagsAPI from "./../api/tags";
 import NoteContext from '../context/note-context';
 import Modal from './Modal';
 import "./../../css/components/TagManager/styles.css";
+import SnackBar from './Snackbar';
 
 let tagManagerElement;
 
@@ -14,21 +15,24 @@ function TagManager({ onClose }) {
   const [tags, setTags] = useState([]);
   const [tagsLoaded, setTagsLoaded] = useState(false);
   const [newTagName, setNewTagName] = useState("");
+  const [snackbarOptions, setSnackbarOptions] = useState({});
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
 
   const api = tagsAPI();
 
   const addTag = async (tagToAdd) => {
     const tagExists = typeof (await api.findTagByName(tagToAdd)) !== "undefined" ? true : false;
-    if (tagExists) return alert("A tag with that name already exists.")
+    if (tagExists) return openSnackbar("A tag with that name already exists.")
     const presentTags = await api.fetchTags();
-    if (presentTags.length >= 50) return alert("You have reached the tag limit. To create more tags you should delete some of your existing tags.");
+    if (presentTags.length >= 50) return openSnackbar("You have reached the tag limit. To create more tags you should delete some of your existing tags.");
 
     try {
       await api.createTag(tagToAdd);
     }
     catch (e) {
       console.log(e);
-      return alert("Failed to create tag. Please try again later.");
+      openSnackbar("Failed to create tag. Please try again later.");
+      return;
     }
 
     setTags(tags.concat([tagToAdd]));
@@ -41,11 +45,17 @@ function TagManager({ onClose }) {
     }
     catch (e) {
       console.log(e);
-      return alert("Failed to delete tag. Please try again later.");
+      openSnackbar("Failed to delete tag. Please try again later.");
+      return;
     }
 
     setTags(tags.filter(tag => tag !== tagToRemove));
     removeTagFromNotes(tagToRemove);
+  }
+
+  const openSnackbar = (text) => {
+    setSnackbarOptions({text, timeout: 5000, multiline: true})
+    setIsSnackbarOpen(true);
   }
 
   useEffect(() => {
@@ -88,6 +98,10 @@ function TagManager({ onClose }) {
           <TagList tags={tags} removeTag={removeTag} />
         </div>
       </div>
+      {
+        isSnackbarOpen &&
+        <SnackBar options={snackbarOptions} close={() => setIsSnackbarOpen(false)} />
+      }
     </Modal>
   );
 }
