@@ -79,7 +79,7 @@ input {
 
 @media (min-width: 1000px) {
   .signup.page .image-container {
-   background-image: url(https://images.pexels.com/photos/3184286/pexels-photo-3184286.jpeg?cs=srgb&dl=pexels-fauxels-3184286.jpg&fm=jpg);
+   background-image: url(/src/images/peopleatmeeting.jpg);
    background-repeat: no-repeat;
    background-position: right;
    background-size: cover;

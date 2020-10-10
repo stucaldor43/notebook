@@ -7,6 +7,17 @@
   padding: 8px 8px;
 }
 
+.tag--disabled {
+  background-color: #d3d3d3;
+}
+
+.tag__loadingIndicator {
+  height: 1.1em;
+  width: 1.1em;
+  margin: 0 4px 0 0;
+  vertical-align: text-top;
+}
+
 .tag__icon {
   width: 20px;
   height: 20px;
