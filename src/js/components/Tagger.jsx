@@ -24,7 +24,7 @@ function Tagger({ tags, addTag, removeTag }) {
         <p>Press enter to add tag or click the Add button</p>
       </div>
       <div>
-        <input type="text" value={tagName} onChange={(e) => setTagName(e.target.value)} />
+        <input placeholder="enter tag name" type="text" value={tagName} onChange={(e) => setTagName(e.target.value)} />
         <Button onClick={() => {
           addTag(tagName);
           setTagName("");

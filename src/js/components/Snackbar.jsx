@@ -22,7 +22,7 @@ function SnackBar({ options, close }) {
   });
 
   return (
-    <div className="snackbar">
+    <div className="snackbar" data-testid="snackbar">
       <p className="snackbar__text" style={{ height: multiline ? "50px" : "25px" }}>{text}</p>
       <div>
         <button className="snackbar__button" onClick={close}>Close</button>

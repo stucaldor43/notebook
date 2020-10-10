@@ -29,7 +29,7 @@ function NoteEditor({ params: { id } }) {
   const addTag = async (tagToAdd) => {
     const selectedNotes = notes.filter((note) => note.selected);
     console.assert(selectedNotes.length === 1, { notes: selectedNotes, errorMsg: "Multiple notes have a selected property that is true" })
-    const noteTagCount = await api.findNote(currentNote.id);
+    const noteTagCount = await api.findNote(currentNote.id); // TODO is this right? shouldn't it include .tags.length somewhere?
     if (noteTagCount.length >= 4) return openSnackbar("You have reached the tag limit for this note. To add a tag to this note you must remove an existing tag first.");
 
     try {
