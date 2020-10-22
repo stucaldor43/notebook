@@ -1,30 +1,21 @@
 import React from 'react';
 import NotePreviewItem from "./../components/NotePreviewItem";
 import "./../../css/components/NotePreviewList/styles.css";
-import NoteContext from "./../context/note-context";
 
-function NotePreviewList() {
+function NotePreviewList({ notes, selectNote }) {
   return (
-    <NoteContext.Consumer>
+    <div className="note-preview-list">
       {
-        ({ notes, selectNote }) => {
+        notes.map((note) => {
           return (
-            <div className="note-preview-list">
-              {
-                notes.map((note) => {
-                  return (
-                    <NotePreviewItem key={note.id}
-                      item={note}
-                      selectNote={selectNote} />
-                  );
-                })
-              }
-            </div>
-          )
-        }
+            <NotePreviewItem key={note.id}
+              item={note}
+              selectNote={selectNote} />
+          );
+        })
       }
-    </NoteContext.Consumer>
-  );
+    </div>
+  )
 }
 
 export default NotePreviewList;
