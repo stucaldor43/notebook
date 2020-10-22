@@ -1,98 +1,148 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
+import React, { useEffect } from "react";
+import { cleanup, queryByTestId, render, screen, waitFor } from "@testing-library/react";
 import NoteContext from "../src/js/context/note-context";
 import AuthContext from "../src/js/context/auth-context";
+import App from "./../src/js/pages/App";
 import NoteEditor from "./../src/js/pages/NoteEditor.jsx";
 import userEvent from "@testing-library/user-event";
+import useNoteStore from "../src/js/stores/useNoteStore";
+import notesAPI from "./../src/js/api/notes";
+import tagsAPI from "./../src/js/api/tags";
+import firebase from "firebase";
+import "firebase/firestore";
 
-jest.mock("./../src/js/api/tags");
-jest.mock("./../src/js/api/notes");
+const firebaseConfig = {
+  apiKey: "AIzaSyBQCU7ZFGfKng1F-BWae8-17zz9K4abR-k",
+  authDomain: "notebook-4b794.firebaseapp.com",
+  databaseURL: "https://notebook-4b794.firebaseio.com",
+  projectId: "notebook-4b794",
+  storageBucket: "notebook-4b794.appspot.com",
+  messagingSenderId: "384084385262",
+  appId: "1:384084385262:web:8e1c8bd51a14ed8cf442ff",
+  measurementId: "G-M0SRS0ZN64"
+};
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
 
 describe("NoteEditor", function () {
-  let notes, setNotes, editNote, loadNote, selectNote;
+  const note1 = {
+    title: "Test Note",
+    selected: true,
+    dateCreated: { nanoseconds: 481000000, seconds: 1599786497 },
+    id: "ae1b6841-e68a-43b3-bc6a-bac3cbd82db5",
+    text: "Lorem ipsum dolor sit amet mi amigo",
+    tags: ["Soccer"]
+  };
+  const note2 = {
+    title: "Test Note 2",
+    selected: false,
+    dateCreated: { nanoseconds: 481000000, seconds: 1599786497 },
+    id: "ac3b3981-e68a-43b3-bc6a-bac3cbk31gk3",
+    text: "This is a test. Do not be alarmed.",
+    tags: []
+  };
+  const { location } = window;
 
-  beforeEach(() => {
-    jest.mock("./../src/js/api/tags");
-    jest.mock("./../src/js/api/notes");
+  beforeAll(async () => {
+    await firebase.auth().signInWithEmailAndPassword("bigworm72@yahoo.com", "abcdef");
+  });
 
-    notes = [{
-      title: "Ezel's First Note",
-      selected: true,
-      dateCreated: { nanoseconds: 481000000, seconds: 1599786497 },
-      id: "04899fd7-6c40-4b17-b8ac-c01411c96bc7",
-      text: "I have no idea if this will work. Maybe it did",
-      tags: ["Sporst", "Skiing", "2"]
-    },
-    {
-      title: "Ezel's Second Note",
-      selected: false,
-      dateCreated: { nanoseconds: 481000000, seconds: 1599786494 },
-      id: "04899fd7-6c40-4b17-b9ad-c01411c96bc7",
-      text: "It works!!! I can't believe it",
-      tags: ["Sports"]
-    }];
-    setNotes = jest.fn()
-    editNote = jest.fn();
-    loadNote = jest.fn();
-    selectNote = jest.fn();
+  afterAll(async () => {
+    // await notesAPI().deleteNote(note1.id);
+    // await firebase.auth().signOut();
+    // await Promise.all(firebase.apps().map((app) => app.delete()));
   })
+
+  beforeEach(async () => {
+    window.firebase = firebase;
+    window.db = db;
+    delete window.location;
+    window.location = { pathname: '/' };
+    localStorage.clear();
+    localStorage.getItem.mockReturnValue(JSON.stringify({ name: "ezel74" }));
+    await notesAPI().createNote(note1);
+})
+
   afterEach(() => {
-    jest.unmock("./../src/js/api/tags");
-    jest.unmock("./../src/js/api/notes");
+    window.location = location;
+    cleanup();
   });
 
-  function customRender(ui) {
-    return render(
-      <AuthContext.Provider value={{ user: {}, isSignedIn: true }}>
-        <NoteContext.Provider value={{ notes, editNote, loadNote, selectNote }}>
-          {ui}
-        </NoteContext.Provider>
-      </AuthContext.Provider>
+  it("renders without crashing", async function () {
+    render(
+      <App>
+        <NoteEditor params={{ id: note1.id }} />
+      </App>
     );
-  }
-
-  it("renders without crashing", function () {
-    render(<NoteEditor params={{ id: notes[0].id }} />)
   });
 
-  it("renders note title", async function (done) {
-    customRender(<NoteEditor params={{ id: notes[0].id }} />);
+  it("shows note title, text and tags", async function () {
+    render(
+      <App>
+        <NoteEditor params={{ id: note1.id }} />
+      </App>
+    );
 
-    expect(await screen.findByDisplayValue(notes[0].title)).toBeInTheDocument();
-    setTimeout(function () {
-      done();
-    }, 3000);
-  });
-
-  it("renders note text", async function (done) {
-    customRender(<NoteEditor params={{ id: notes[0].id }} />);
-
-    expect(await screen.findByText(notes[0].text)).toBeInTheDocument();
-    setTimeout(function () {
-      done();
-    }, 3000);
-  });
-
-  it("renders note tags", async function (done) {
-    customRender(<NoteEditor params={{ id: notes[0].id }} />);
-
-    for (const tag of notes[0].tags) {
-      expect(await screen.findByText(tag)).toBeInTheDocument();
+    expect(await screen.findByDisplayValue(note1.title)).toBeInTheDocument();
+    expect(await screen.findByText(note1.text)).toBeInTheDocument();
+    for (const tag of note1.tags) {
+      expect(await screen.findByText(tag)).toHaveTextContent(tag);
     }
-    setTimeout(function () {
-      done();
-    }, 3000);
   });
 
-  it("has an input which allows tags to be added", async function (done) {
-    customRender(<NoteEditor params={{ id: notes[0].id }} />);
+  it("allows user to change note title", async function() {
+    render(
+      <App>
+        <NoteEditor params={{ id: note1.id }} />
+      </App>
+    );
 
-    expect(await screen.findByPlaceholderText("Add tag")).toBeInTheDocument();
-    userEvent.type(await screen.findByPlaceholderText("Add tag"), "basketball{enter}");
-    expect(await screen.findByPlaceholderText("Add tag")).toHaveDisplayValue("");
-    expect(await screen.findByText("basketball")).toBeInTheDocument();
-    setTimeout(function () {
-      done();
-    }, 3000);
+    userEvent.type(await screen.findByDisplayValue(note1.title), "{selectall}{backspace}New title");
+    expect(screen.getByDisplayValue("New title")).toBeInTheDocument();
+  });
+
+  it("allows user to change note text", async function() {
+    render(
+      <App>
+        <NoteEditor params={{ id: note1.id }} />
+      </App>
+    );
+    
+    const element = await screen.findByText(note1.text);
+    userEvent.click(element);
+    userEvent.type(element, "{backspace}{backspace}");
+    expect(element).toHaveTextContent("Lorem ipsum dolor sit amet mi ami");
+  });
+
+  it("allows user to delete tags", async function() {
+    render(
+      <App>
+        <NoteEditor params={{ id: note1.id }} />
+      </App>
+    );
+
+    for (const tag of note1.tags) {
+      expect(await screen.findByText(tag)).toHaveTextContent(tag);
+      userEvent.click(await screen.findByTestId(`delete-${tag}-tag-button`));
+    }
+    
+    for (const tag of note1.tags) {
+      await waitFor(() => expect(screen.queryByTestId(`delete-${tag}-tag-button`)).not.toBeInTheDocument());
+    }
+  });
+
+  it("allows user to add tags to note", async function() {
+    render(
+      <App>
+        <NoteEditor params={{ id: note1.id }} />
+      </App>
+    );
+
+    expect(await screen.findByPlaceholderText("enter tag name")).toBeInTheDocument();
+    userEvent.type(await screen.findByPlaceholderText("enter tag name"), "Pinball");
+    userEvent.click(await screen.findByText("Add"));
+    await waitFor(async () => expect(await screen.findByText("Pinball")).toBeInTheDocument());
+    await tagsAPI().deleteTag("Pinball");
   });
 });
