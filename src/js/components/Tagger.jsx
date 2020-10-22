@@ -26,8 +26,9 @@ function Tagger({ tags, addTag, removeTag }) {
       <div>
         <input placeholder="enter tag name" type="text" value={tagName} onChange={(e) => setTagName(e.target.value)} />
         <Button onClick={() => {
-          addTag(tagName);
-          setTagName("");
+          addTag(tagName); // TODO put all code in this handler in try catch block (?)
+          setAllPossibleNoteTagsList(allPossibleNoteTagsList.concat([tagName]))
+          setTagName(""); // TODO SETALLPOSS EQUAL TO ALLPOSS.CONCAT TAGNAME BEFORE MAKING TAG NAME BLANK
         }}>Add</Button>
       </div>
       <div>
