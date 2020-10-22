@@ -1,11 +1,8 @@
-import React, { useEffect } from "react";
-import { cleanup, queryByTestId, render, screen, waitFor } from "@testing-library/react";
-import NoteContext from "../src/js/context/note-context";
-import AuthContext from "../src/js/context/auth-context";
+import React from "react";
+import { render, screen, waitFor } from "@testing-library/react";
 import App from "./../src/js/pages/App";
 import NoteEditor from "./../src/js/pages/NoteEditor.jsx";
 import userEvent from "@testing-library/user-event";
-import useNoteStore from "../src/js/stores/useNoteStore";
 import notesAPI from "./../src/js/api/notes";
 import tagsAPI from "./../src/js/api/tags";
 import firebase from "firebase";
@@ -34,14 +31,6 @@ describe("NoteEditor", function () {
     text: "Lorem ipsum dolor sit amet mi amigo",
     tags: ["Soccer"]
   };
-  const note2 = {
-    title: "Test Note 2",
-    selected: false,
-    dateCreated: { nanoseconds: 481000000, seconds: 1599786497 },
-    id: "ac3b3981-e68a-43b3-bc6a-bac3cbk31gk3",
-    text: "This is a test. Do not be alarmed.",
-    tags: []
-  };
   const { location } = window;
 
   beforeAll(async () => {
@@ -49,9 +38,7 @@ describe("NoteEditor", function () {
   });
 
   afterAll(async () => {
-    // await notesAPI().deleteNote(note1.id);
-    // await firebase.auth().signOut();
-    // await Promise.all(firebase.apps().map((app) => app.delete()));
+    await Promise.all(firebase.apps().map((app) => app.delete()));
   })
 
   beforeEach(async () => {
@@ -66,7 +53,6 @@ describe("NoteEditor", function () {
 
   afterEach(() => {
     window.location = location;
-    cleanup();
   });
 
   it("renders without crashing", async function () {
