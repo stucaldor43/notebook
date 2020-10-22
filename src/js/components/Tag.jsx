@@ -2,6 +2,7 @@ import React from 'react';
 import "./../../css/components/Tag/styles.css";
 import CrossSvg from './../components/CrossSvg.jsx';
 import LoadingSvg from './../components/LoadingSvg.jsx';
+import Button from './Button';
 
 function Tag({ name, deleteTag, removeable = true, loading = false }) {
   return (
@@ -11,7 +12,9 @@ function Tag({ name, deleteTag, removeable = true, loading = false }) {
       }
       <span className="tag__name">{name}</span>
       {removeable &&
-        <CrossSvg classes={"tag__icon"} onClick={deleteTag} tabbable={true} />
+        <Button onClick={deleteTag} classes="tag__deleteButton" testid={`delete-${name}-tag-button`}>
+          <CrossSvg classes={"tag__icon"} tabbable={true} />
+        </Button>
       }
     </li>
   );

@@ -1,5 +1,5 @@
 const notes = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(window.localStorage.getItem("user"));
   
   return {
     fetchNotes: async () => {
