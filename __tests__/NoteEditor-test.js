@@ -5,21 +5,7 @@ import NoteEditor from "./../src/js/pages/NoteEditor.jsx";
 import userEvent from "@testing-library/user-event";
 import notesAPI from "./../src/js/api/notes";
 import tagsAPI from "./../src/js/api/tags";
-import firebase from "firebase";
-import "firebase/firestore";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBQCU7ZFGfKng1F-BWae8-17zz9K4abR-k",
-  authDomain: "notebook-4b794.firebaseapp.com",
-  databaseURL: "https://notebook-4b794.firebaseio.com",
-  projectId: "notebook-4b794",
-  storageBucket: "notebook-4b794.appspot.com",
-  messagingSenderId: "384084385262",
-  appId: "1:384084385262:web:8e1c8bd51a14ed8cf442ff",
-  measurementId: "G-M0SRS0ZN64"
-};
-firebase.initializeApp(firebaseConfig);
-
+import firebase from "./../src/database/db";
 const db = firebase.firestore();
 
 describe("NoteEditor", function () {

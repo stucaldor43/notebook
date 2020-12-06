@@ -1,13 +1,8 @@
 import React from "react";
 import {render, screen} from "@testing-library/react";
 import NotePreviewList from "../src/js/components/NotePreviewList";
-import NoteContext from "../src/js/context/note-context";
 
 describe("NotePreviewList", function() {
-  function customRender(ui, { ...providerProps}) {
-    return render(<NoteContext.Provider {...providerProps}>{ui}</NoteContext.Provider>)
-  }
-
   const notes = [
     {
       title:"Ezel's First Note",
@@ -28,17 +23,11 @@ describe("NotePreviewList", function() {
   ]
 
   it("renders without crashing", function() {
-    render(<NotePreviewList/>);
+    render(<NotePreviewList notes={notes} selectNote={() => {}}/>);
   });
 
   it("renders items", function() {
-    const providerProps = {
-      value: {
-        notes,
-        selectNote: jest.fn()
-      }
-    }
-    customRender(<NotePreviewList/>, providerProps);
+    render(<NotePreviewList notes={notes} selectNote={() => {}}/>);
     
     const [firstItem, secondItem] = screen.getAllByTestId("note-preview-item");
     expect(firstItem).toBeInTheDocument();
