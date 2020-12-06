@@ -1,10 +1,10 @@
 import React from "react";
 import NotesOverview from "../components/NotesOverview.jsx";
 
-function Home() {
+function Home({ store }) {
   return(
       <article className="page home">
-        <NotesOverview/>
+        <NotesOverview store={store}/>
       </article>
   );
 }

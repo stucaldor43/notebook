@@ -6,7 +6,7 @@ import TagSvg from './TagSvg.jsx';
 import AddNoteDialog from "./AddNoteDialog.jsx";
 import TagManager from './TagManager.jsx';
 
-function NotesOverview({ }) {
+function NotesOverview({ store }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isTagManagerOpen, setIsTagManagerOpen] = useState(false);
 
@@ -19,11 +19,12 @@ function NotesOverview({ }) {
           Add Note
             </Button>
         <Button classes="title-with-optional-button__button"
-          onClick={() => setIsTagManagerOpen(true)}>
+          onClick={() => setIsTagManagerOpen(true)}
+          testid="open-tag-manager-button">
           <TagSvg />
         </Button>
       </TitleWithOptionalButton>
-      <NotePreviewList />
+      <NotePreviewList notes={store.notes} selectNote={store.selectNote}/>
       { isDialogOpen && <AddNoteDialog closeDialog={() => setIsDialogOpen(false)} />}
       { isTagManagerOpen && <TagManager onClose={() => setIsTagManagerOpen(false)} />}
     </div>

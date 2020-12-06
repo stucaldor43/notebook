@@ -16,9 +16,8 @@ function useNoteStore(initialValue) {
   }
 
   const load = async () => {
-    const user = firebase.auth().currentUser.displayName;
     const noteQuerySnapshot = await db.collection("users")
-      .doc(user)
+      .doc(JSON.parse(window.localStorage.getItem("user")).name)
       .collection("notes")
       .where("id", ">=", "0")
       .get();
@@ -47,9 +46,8 @@ function useNoteStore(initialValue) {
     const updatedNotes = notes.concat([createdNote]);
     setNotes(updatedNotes);
 
-    const user = firebase.auth().currentUser.displayName;
     db.collection("users")
-      .doc(user)
+      .doc(JSON.parse(window.localStorage.getItem("user")).name)
       .collection("notes")
       .doc(createdNote.id)
       .set(createdNote)
@@ -65,9 +63,8 @@ function useNoteStore(initialValue) {
       return id === note.id ? editedNote : note
     }));
 
-    const user = firebase.auth().currentUser.displayName;
     db.collection("users")
-      .doc(user)
+      .doc(JSON.parse(window.localStorage.getItem("user")).name)
       .collection("notes")
       .doc(editedNote.id)
       .set(editedNote)
