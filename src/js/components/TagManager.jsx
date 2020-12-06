@@ -2,7 +2,6 @@ import React, { useEffect, useContext, useState } from 'react';
 import AuthContext from "./../context/auth-context";
 import TagList from './TagList';
 import tagsAPI from "./../api/tags";
-import NoteContext from '../context/note-context';
 import Modal from './Modal';
 import "./../../css/components/TagManager/styles.css";
 import SnackBar from './Snackbar';
@@ -11,7 +10,7 @@ let tagManagerElement;
 
 function TagManager({ onClose }) {
   const { user, isSignedIn } = useContext(AuthContext);
-  const { removeTagFromNotes, addTagToNotes, notes } = useContext(NoteContext);
+  //const { removeTagFromNotes, addTagToNotes, notes } = useContext(NoteContext);
   const [tags, setTags] = useState([]);
   const [tagsLoaded, setTagsLoaded] = useState(false);
   const [newTagName, setNewTagName] = useState("");
@@ -50,7 +49,6 @@ function TagManager({ onClose }) {
     }
 
     setTags(tags.filter(tag => tag !== tagToRemove));
-    removeTagFromNotes(tagToRemove);
   }
 
   const openSnackbar = (text) => {
