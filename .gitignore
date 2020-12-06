@@ -1,6 +1,5 @@
 node_modules
 .cache
 .vscode
-dist/
 notes.txt
 server/

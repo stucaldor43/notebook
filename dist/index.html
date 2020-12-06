@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Notebook App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,300&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>* {
+      box-sizing: border-box;
+    }
+
+    html {
+      background-color: #e9ecef;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      line-height: 1.6em;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    input {
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    ul {
+      padding: 0;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    .page {
+      padding: 8px;
+      min-height: 100vh;
+      width: 100%;
+      position: absolute;
+    }</style>
+<link rel="stylesheet" href="/notebook.e31bb0bc.css"></head>
+
+<body>
+  <div id="app"><div id="view"></div></div>
+  <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-app.js"></script>
+  <script defer="" src="https://www.gstatic.com/firebasejs/7.19.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-firestore.js"></script>
+  <script>// Your web app's Firebase configuration
+var firebaseConfig = {
+  apiKey: "AIzaSyBQCU7ZFGfKng1F-BWae8-17zz9K4abR-k",
+  authDomain: "notebook-4b794.firebaseapp.com",
+  databaseURL: "https://notebook-4b794.firebaseio.com",
+  projectId: "notebook-4b794",
+  storageBucket: "notebook-4b794.appspot.com",
+  messagingSenderId: "384084385262",
+  appId: "1:384084385262:web:8e1c8bd51a14ed8cf442ff",
+  measurementId: "G-M0SRS0ZN64"
+}; // Initialize Firebase
+
+firebase.initializeApp(firebaseConfig);
+window.db = firebase.firestore();</script>
+  <script type="text/javascript" src="/notebook.e31bb0bc.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,352 @@
+.title-with-optional-button {
+  max-width: 600px;
+  position: relative;
+}
+
+.title-with-optional-button__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.title-with-optional-button__title {
+  line-height: 38px;
+}
+
+.title-with-optional-button__button {
+  background-color: transparent;
+  margin: 0 8px 0 0;
+}
+
+.title-with-optional-button__button:last-child {
+  margin: 0 0;
+}
+
+.title-with-optional-button__elementsContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+button {
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 38px;
+  padding: 0 24px;
+  border: 1px solid transparent;
+  transition: all .1s ease-in-out;
+}
+
+button:hover {
+  color: #fff;
+  background-color: #495057;
+}
+.note-preview-item {
+    cursor: pointer;
+    max-width: 600px;
+    border: thin solid transparent;
+    border-radius: 6px;
+    margin: 0 0 16px 0;
+    padding: 0 16px;
+    box-shadow: 0 0 5px 3px #dee2e6;
+    background-color: #f8f9fa;
+}
+
+.note-preview-item__title {
+  color: #212529;
+}
+
+.note-preview-item__textContent{
+  color: #495057;
+}
+
+
+.tag-svg {
+  width: 32px;
+  height: 32px;
+}
+.modal {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 16px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+}
+/* .add-note-dialog--visible {
+  display: block;
+}
+
+.add-note-dialog--invisible {
+  display: none;
+} */
+
+.add-note-dialog__container {
+  background-color: #fff;
+  max-width: 400px;
+  padding: 16px 32px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+}
+
+.add-note-dialog__content {
+  margin: 0 0 8px 0;
+}
+
+.add-note-dialog__input {
+  width: 100%;
+}
+
+.add-note-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-note-dialog_button--cancel {
+  margin: 0 4px 0 0;
+}
+.tag {
+  background-color: #38dddd;
+  border-radius: 4px;
+  color: #fff;
+  display: inline;
+  margin: 0 8px 8px 0;
+  padding: 8px 8px;
+}
+
+.tag--disabled {
+  background-color: #d3d3d3;
+}
+
+.tag__loadingIndicator {
+  height: 1.1em;
+  width: 1.1em;
+  margin: 0 4px 0 0;
+  vertical-align: text-top;
+}
+
+.tag__deleteButton {
+  background-color: transparent;
+  line-height: 0;
+  margin: 0 0 0 4px;
+  padding: 0;
+}
+
+.tag__icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: text-bottom;
+}
+
+.tag__icon path {
+  fill: #56638A;
+}
+.cross-svg {
+  cursor: pointer;
+}
+.tag-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.tag-manager {
+  max-width: 480px;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  background-color: #fff;
+  padding: 16px 32px;
+  width: calc(100% - 32px);
+}
+
+.tag-manager__addTagInput {
+  width: 100%
+}
+
+.tag-manager ul {
+  max-height: 160px;
+  overflow-y: auto;
+}
+.snackbar {
+  background-color: #000;
+  border-radius: 6px;
+  font-size: .875em;
+  max-width: 300px;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 0%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.snackbar__text {
+  color: #fff;
+  margin: 0 4px 0 0;
+  overflow: hidden;
+}
+
+.snackbar__button {
+  background-color: transparent;
+  border: none;
+  color: red;
+  cursor: pointer;
+  padding: 8px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+.snackbar__button:hover {
+  background-color: rgba(255, 0, 0, .2);
+  color: red;
+}
+input {
+  padding: 8px;
+}
+
+.signup.page {
+  padding: 16px;
+}
+
+@media(min-width: 1000px) {
+  .signup.page {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+  }
+}
+
+.signup.page .form-container {
+  position: relative;
+}
+
+@media (min-width: 1000px) {
+  .signup.page .form-container {
+    padding: 16px;
+    position: relative;
+    width: 40%;
+  }
+}
+
+.signup.page h2 {
+  color: #858585
+}
+
+.signup.page .flavor-text {
+  color: #adadad;
+  font-size: 1em;
+}
+
+.signup.page form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1000px) {
+  .signup.page form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 61.8%;
+  }
+}
+
+.signup.page label {
+  color: #a3a3a3;
+  display: block;
+}
+
+.signup.page input {
+  border: thin solid #dfdfdf;
+  margin: 0 0 8px 0;
+  width: 100%;
+}
+
+.signup.page input[type="submit"]{
+  background: rgb(56,20,250);
+  background: linear-gradient(90deg, rgba(56,20,250,1) 0%, rgba(103,11,208,1) 50%, rgba(150,1,163,1) 100%);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 12px 8px;
+  margin: 12px 0;
+  text-transform: uppercase;
+}
+
+.signup.page .image-container {
+  display: none;
+}
+
+@media (min-width: 1000px) {
+  .signup.page .image-container {
+   background-image: url(/peopleatmeeting.6fb0aaff.jpg);
+   background-repeat: no-repeat;
+   background-position: right;
+   background-size: cover;
+   display: block;
+   width: 60%;
+   height: 100vh;
+  }
+}
+
+.signup.page .sign-in-text {
+  text-align: center;
+}
+
+.signup.page a:link, .signup.page a:visited {
+  color: #b75cf9;
+  text-decoration: none;
+}
+.editable-title__input {
+    margin: 0 0 16px 0;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 0 5px 3px #dee2e6;
+    border: 1px solid transparent;
+    padding: 8px;
+    font-weight: 800;
+    font-size: 1.2em;
+    color: #333232;
+}
+.edit-note-view__contentEditor {
+  width: 100%;
+  max-width: 600px;
+  height: 600px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 5px 3px #dee2e6;
+  padding: 8px 8px;
+  overflow: hidden;
+}
+.note.page .container {
+  margin: 0 auto;
+  max-width: 600px;
+}
+.my-node-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.my-node-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 1s ease-in-out 0s;
+}
+.my-node-exit {
+  opacity: 1;
+}
+.my-node-exit-active {
+  opacity: 0;
+  transition: all 1s ease-in-out 0s;
+}
+
+/*# sourceMappingURL=/notebook.e31bb0bc.css.map */
