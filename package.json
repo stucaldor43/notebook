@@ -10,7 +10,6 @@
     "coverage": "NODE_ENV=test || set NODE_ENV=test&& jest --coverage"
   },
   "dependencies": {
-    "@vaadin/router": "^1.7.2",
     "firebase": "^7.23.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

@@ -1697,23 +1697,6 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@vaadin/router@^1.7.2":
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/@vaadin/router/-/router-1.7.2.tgz#ba2fcd7bc522f1319e6d853e430e384820dcfa09"
-  dependencies:
-    "@vaadin/vaadin-usage-statistics" "^2.1.0"
-    path-to-regexp "2.4.0"
-
-"@vaadin/vaadin-development-mode-detector@^2.0.0":
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/@vaadin/vaadin-development-mode-detector/-/vaadin-development-mode-detector-2.0.4.tgz#f49c8009856bead92d248377c36b295b5aae78e5"
-
-"@vaadin/vaadin-usage-statistics@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@vaadin/vaadin-usage-statistics/-/vaadin-usage-statistics-2.1.0.tgz#9c0fd71dded80f401bcdfbcb3f45b5640fc4256d"
-  dependencies:
-    "@vaadin/vaadin-development-mode-detector" "^2.0.0"
-
 abab@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.4.tgz#6dfa57b417ca06d21b2478f0e638302f99c2405c"
@@ -5485,10 +5468,6 @@ path-parse@^1.0.6:
 path-to-regexp@0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
-
-path-to-regexp@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-2.4.0.tgz#35ce7f333d5616f1c1e1bfe266c3aba2e5b2e704"
 
 pbkdf2@^3.0.3:
   version "3.1.1"
