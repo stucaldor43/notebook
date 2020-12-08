@@ -1,4 +1,4 @@
-import algoliasearch from 'algoliasearch';
+const algoliasearch = require('algoliasearch').default;
 const client = algoliasearch(process.env.ALGOLIA_ID, process.env.ALGOLIA_ADMIN_KEY);
 
 exports.handler = async function (event, context) {
