@@ -3,7 +3,7 @@ const client = algoliasearch(process.env.ALGOLIA_ID, process.env.ALGOLIA_ADMIN_K
 
 exports.handler = async function (event, context) {
   const index = client.initIndex(process.env.ALGOLIA_INDEX_NAME);
-  index.saveObject({
+  await index.saveObject({
     objectID: "4kaj",
     title: "First Post",
     body: "Some text"
